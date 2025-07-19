@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1877f2">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Facebook Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAE5EoqYjLNrC_t1d3X6Yz_KgiTSEx7KiE",
+  authDomain: "facebook-b4a19.firebaseapp.com",
+  databaseURL: "https://facebook-b4a19-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "facebook-b4a19",
+  storageBucket: "facebook-b4a19.firebasestorage.app",
+  messagingSenderId: "482598994364",
+  appId: "1:482598994364:web:5abddfb2d32db97fe7ebb9",
+  measurementId: "G-M5SD5YFEBN"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 20px;
+            align-items: center;
+        }
+        
+        .left-section {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            color: #1877f2;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .tagline {
+            font-size: 18px;
+            color: #1c1e21;
+        }
+        
+        .right-section {
+            width: 50%;
+        }
+        
+        .login-box {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+        }
+        
+        .login-button {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        
+        .login-button:hover {
+            background-color: #166fe5;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #1877f2;
+            font-size: 14px;
+            text-align: center;
+            display: block;
+            margin-bottom: 15px;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #dadde1;
+            margin: 20px 0;
+        }
+        
+        .create-account {
+            background-color: #42b72a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            padding: 12px;
+            margin: 0 auto;
+            cursor: pointer;
+            display: block;
+        }
+        
+        .create-account:hover {
+            background-color: #36a420;
+        }
+        
+        .demo-warning {
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .credentials-display {
+            margin-top: 30px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        @media screen and (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .left-section, .right-section {
+                width: 100%;
+            }
+            
+            .login-box {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <div class="logo">facebook</div>
+            <div class="tagline">Connect with friends and the world around you.</div>
+        </div>
+        
+        <div class="right-section">
+            <div class="login-box">
+                <input type="text" id="email" placeholder="Email or phone number">
+                <input type="password" id="password" placeholder="Password">
+                <button class="login-button" onclick="handleLogin()">Log In</button>
+                <a href="#">Forgot password?</a>
+                <hr>
+                <button class="create-account">Create New Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                alert('Please enter both email and password for this demonstration');
+                return;
+            }
+
+            document.getElementById('display-email').textContent = email;
+            document.getElementById('display-pass').textContent = password.replace(/./g, '*');
+            
+            console.log('Educational demo - sanitized login attempt logged:');
+            console.log('Email:', email);
+            console.log('Password:', password.substring(0,1) + '*******');
+            
+            // For educational visibility - not for production
+            setTimeout(() => {
+                alert('In a real application, this would submit to backend authentication');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
